@@ -9,7 +9,7 @@ version = '0.0.1-SNAPSHOT'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(23)
     }
 }
 
@@ -39,9 +39,25 @@ dependencies {
 
     //-- 스프링 시큐리티
     implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    //- jwt
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+    //-- 스프링 데브툴
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    //-- h2
     runtimeOnly 'com.h2database:h2'
+
+    //- 롬복
     annotationProcessor 'org.projectlombok:lombok'
+
+    //- Swagger (OpenAPI)
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
+
+    //- 테스트
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.4'
     testImplementation 'org.springframework.batch:spring-batch-test'

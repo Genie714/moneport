@@ -1,0 +1,27 @@
+server:
+  port: 8096
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  mybatis:
+    mapper-locations: classpath:mapper/**/*.xml
+    type-aliases-package: com.moneport.backend.domain
+
+  jpa: # 혹시 JPA 병행 테스트 시 필요
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+
+logging:
+  level:
+    com.moneport: DEBUG
+    org.mybatis: DEBUG
+
