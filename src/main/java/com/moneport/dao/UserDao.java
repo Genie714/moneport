@@ -1,4 +1,4 @@
-package com.moneport.mapper;
+package com.moneport.dao;
 
 import com.moneport.backend.domain.User;
 import org.apache.ibatis.annotations.Mapper;
@@ -32,6 +32,6 @@ public interface UserDao {
      * @modi date :
      * @modi desc :
      */
-    void insert(User user) throws Exception;
+    void insertUser(User user) throws Exception;
 
 }
