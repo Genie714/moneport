@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.moneport.dao.UserDao">
+<mapper namespace="com.moneport.dao.user.UserDao">
+    <update id="updateUser" parameterType="Map">
+        UPDATE
+            MEMBER
+        SET
+            USERNAME = #{username},
+            PASSWORD = #{password},
+            ACT_DT = CURRENT_TIMESTAMP
+        WHERE 1 = 1
+            AND ID = #{id}
+    </update>
 
-    <select id="findById" resultType="com.moneport.backend.domain.User">
+    <select id="findById" resultType="Map">
         -- 임시 아이디 찾기 --
         SELECT
             *
@@ -12,7 +22,7 @@
             AND ID = #{id}
     </select>
 
-    <insert id="insertUser" parameterType="com.moneport.backend.domain.User" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertUser" parameterType="Map" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO
             MEMBER
         (
@@ -23,5 +33,13 @@
             #{password}
         )
     </insert>
+
+    <delete id="deleteUser" parameterType="Map">
+        DELETE
+        FROM
+            MEMBER
+        WHERE 1 = 1
+            AND ID = #{id}
+    </delete>
 
 </mapper>

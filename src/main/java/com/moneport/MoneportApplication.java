@@ -8,6 +8,9 @@ public class MoneportApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(MoneportApplication.class, args);
+
+
+
     }
 
 }

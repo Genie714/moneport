@@ -1,17 +1,16 @@
 package com.moneport.dao;
 
-import com.moneport.backend.domain.User;
+import com.moneport.dao.user.UserDao;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(properties = {
-    "spring.datasource.url=jdbc:h2:file:./data/moneportdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE",
-    "mybatis.mapper-locations=classpath:mapper/**/*.xml",
-    "mybatis.type-aliases-package=com.moneport.domain"
-})
+@SpringBootTest
 public class UserDaoTest {
 
     @Autowired
@@ -20,10 +19,13 @@ public class UserDaoTest {
     @Test
     void checkUserDao() {
         try {
-            User user = new User(null, "tester", "1234");
-            userDao.insertUser(user);
+            Map<String, Object> param = new HashMap<>();
+            param.put("username", "tester");
+            param.put("password", "1234");
+            param.put("id", null);
+            userDao.insertUser(param);
 
-            User found = userDao.findById(user.getId());
+            Map<String, Object> found = userDao.findById(param);
             assertThat(found).isNotNull();
 
         } catch (Exception e) {

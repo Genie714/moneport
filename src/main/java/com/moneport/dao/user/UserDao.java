@@ -1,7 +1,8 @@
-package com.moneport.dao;
+package com.moneport.dao.user;
 
-import com.moneport.backend.domain.User;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.Map;
 
 @Mapper
 public interface UserDao {
@@ -18,7 +19,7 @@ public interface UserDao {
      * @modi date :
      * @modi desc :
      */
-    User findById(Long id) throws Exception;
+    Map<String, Object> findById(Map<String, Object> param) throws Exception;
 
     /**
      * <p>
@@ -32,6 +33,9 @@ public interface UserDao {
      * @modi date :
      * @modi desc :
      */
-    void insertUser(User user) throws Exception;
+    void insertUser(Map<String, Object> param) throws Exception;
 
+    void updateUser(Map<String, Object> param) throws Exception;
+
+    void deleteUser(Map<String, Object> param) throws Exception;
 }
