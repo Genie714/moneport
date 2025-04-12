@@ -1,9 +1,11 @@
 package com.moneport.dao;
 
 import com.moneport.dao.user.UserDao;
+import com.moneport.framework.dataObject.MapRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,6 +13,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
+@Transactional
 public class UserDaoTest {
 
     @Autowired
@@ -19,8 +22,8 @@ public class UserDaoTest {
     @Test
     void checkUserDao() {
         try {
-            Map<String, Object> param = new HashMap<>();
-            param.put("username", "tester");
+            MapRequest param = new MapRequest();
+            param.put("username", "trantest");
             param.put("password", "1234");
             param.put("id", null);
             userDao.insertUser(param);

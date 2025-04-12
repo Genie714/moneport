@@ -1,5 +1,6 @@
 package com.moneport.dao.user;
 
+import com.moneport.framework.dataObject.MapRequest;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Map;
@@ -33,9 +34,9 @@ public interface UserDao {
      * @modi date :
      * @modi desc :
      */
-    void insertUser(Map<String, Object> param) throws Exception;
+    void insertUser(MapRequest param) throws Exception;
 
-    void updateUser(Map<String, Object> param) throws Exception;
+    void updateUser(MapRequest param) throws Exception;
 
-    void deleteUser(Map<String, Object> param) throws Exception;
+    void deleteUser(MapRequest param) throws Exception;
 }
