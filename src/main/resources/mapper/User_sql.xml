@@ -42,4 +42,17 @@
             AND ID = #{id}
     </delete>
 
+    <select id="selectOneUser" parameterType="Map" resultType="Map">
+        SELECT
+            USERNAME,
+            CASE WHEN PASSWORD = #{password} THEN
+                  'Y'
+            ELSE
+                  'N'
+            END LOGIN_YN
+        FROM
+            MEMBER
+        WHERE 1 = 1
+            AND USERNAME = #{username}
+    </select>
 </mapper>

@@ -1,9 +1,16 @@
-package com.moneport.config;
+package com.moneport.backend.config;
 
+import com.moneport.backend.filter.JwtAuthenticFilter;
+import com.moneport.framework.util.JwtUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import java.util.List;
 
 /**
  * @Project_Name : moneport
@@ -15,7 +22,18 @@ import org.springframework.security.web.SecurityFilterChain;
  * @version 1.0
  */
 @Configuration
+@EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
+
+    private final JwtUtil jwtUtil;
+
+    private static final List<String> permitAllUrls  = List.of(
+        "/h2-console/**",
+        //"/api/auth/**",
+        "/swagger-ui/**",
+        "/api-docs/**"
+    );
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
@@ -23,11 +41,12 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable()) // CSRF 끄기
             .headers(headers -> headers.frameOptions(frame -> frame.disable())) // iframe 허용
             .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/h2-console/**")
+                    .requestMatchers(permitAllUrls.toArray(new String[0]))
                     .permitAll()
                     .anyRequest()
-                    .permitAll()
-            );
+                    .authenticated()
+            )
+            .addFilterBefore(new JwtAuthenticFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

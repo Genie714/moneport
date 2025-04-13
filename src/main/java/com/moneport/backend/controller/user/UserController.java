@@ -1,6 +1,7 @@
 package com.moneport.backend.controller.user;
 
 import com.moneport.framework.dataObject.MapRequest;
+import com.moneport.framework.global.WebLogic;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -10,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -26,7 +28,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Tag(name = "사용자 API", description = "User 관련 API")
 @Slf4j
-public class UserController {
+public class UserController extends WebLogic {
 
     private final UserService userService;
 
@@ -38,29 +40,65 @@ public class UserController {
     })
     @PostMapping
     public ResponseEntity<Map<String, Object>> createUser(MapRequest param) {
+        Map<String, Object> jsonObj = new HashMap<>(); // return json object
+        
         log.debug("컨트롤러 받은 값: {}", param);
-        Map<String, Object> userId = userService.createUser(param);
-        return ResponseEntity.ok(userId);
+        //- 유저 생성
+        userService.createUser(param);
+
+        makeAjaxSysMsg(jsonObj, "SUCCESS", "SUCCESS", "N");
+
+        return ResponseEntity.ok(jsonObj);
     }
 
     @Operation(summary = "유저 조회", description = "유저 조회")
+    @Parameters({
+            @Parameter(name = "param", hidden = true),
+            @Parameter(name = "id", description = "유저 아이디", required = true)
+    })
     @GetMapping("/{id}")
     public ResponseEntity<Map<String, Object>> getUser(MapRequest param) {
-        return ResponseEntity.ok(userService.getUserById(param));
+        Map<String, Object> jsonObj = new HashMap<>(); // return json object
+
+        //- 유저 조회
+        jsonObj.put("user", userService.getUserById(param));
+
+        makeAjaxSysMsg(jsonObj, "SUCCESS", "SUCCESS", "N");
+
+        return ResponseEntity.ok(jsonObj);
     }
 
     @Operation(summary = "유저 수정", description = "유저 수정")
+    @Parameters({
+            @Parameter(name = "param", hidden = true),
+            @Parameter(name = "id", description = "유저 아이디", required = true)
+    })
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateUser(MapRequest param) {
+    public ResponseEntity<Map<String, Object>> updateUser(MapRequest param) {
+        Map<String, Object> jsonObj = new HashMap<>(); // return json object
+
+        //- 유저 수정
         userService.updateUser(param);
-        return ResponseEntity.ok().build();
+
+        makeAjaxSysMsg(jsonObj, "SUCCESS", "SUCCESS", "N");
+
+        return ResponseEntity.ok(jsonObj);
     }
 
     @Operation(summary = "유저 삭제", description = "유저 삭제")
+    @Parameters({
+            @Parameter(name = "param", hidden = true),
+            @Parameter(name = "id", description = "유저 아이디", required = true)
+    })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(MapRequest param) {
+    public ResponseEntity<Map<String, Object>> deleteUser(MapRequest param) {
+        Map<String, Object> jsonObj = new HashMap<>(); // return json object
+
         userService.deleteUser(param);
-        return ResponseEntity.noContent().build();
+
+        makeAjaxSysMsg(jsonObj, "SUCCESS", "SUCCESS", "N");
+
+        return ResponseEntity.ok(jsonObj);
     }
 
 }

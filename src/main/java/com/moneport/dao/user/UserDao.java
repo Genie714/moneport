@@ -39,4 +39,6 @@ public interface UserDao {
     void updateUser(MapRequest param) throws Exception;
 
     void deleteUser(MapRequest param) throws Exception;
+
+    Map<String, Object> selectOneUser(MapRequest param);
 }

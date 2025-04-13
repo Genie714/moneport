@@ -33,3 +33,8 @@ springdoc:
     path: /swagger-ui.html
     operationsSorter: method
     tagsSorter: alpha
+
+#jwt
+jwt:
+  secret: uH5NdqVcK4F9gC7XsT8JwM9qZyL4eP6r
+  expiration: 3600000 # 1시간 (밀리초)

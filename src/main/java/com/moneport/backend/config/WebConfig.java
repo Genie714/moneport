@@ -1,4 +1,4 @@
-package com.moneport.config;
+package com.moneport.backend.config;
 
 import com.moneport.framework.paramMapResolver.ParamMapResolver;
 import org.springframework.context.annotation.Configuration;
