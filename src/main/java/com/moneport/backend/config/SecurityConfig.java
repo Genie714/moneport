@@ -30,7 +30,7 @@ public class SecurityConfig {
 
     private static final List<String> permitAllUrls  = List.of(
         "/h2-console/**",
-        //"/api/auth/**",
+        "/api/auth/**",
         "/swagger-ui/**",
         "/api-docs/**"
     );

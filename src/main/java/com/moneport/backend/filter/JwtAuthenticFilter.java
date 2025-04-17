@@ -40,7 +40,7 @@ public class JwtAuthenticFilter extends OncePerRequestFilter {
      */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String token = request.getHeader("Authorization"); //- 토큰가져오기
+        String token = getTokenFromRequest(request); //- 토큰가져오기
 
         if (token != null && jwtUtil.validateToken(token)) {
             Authentication auth = jwtUtil.getAuthentication(token);
@@ -48,6 +48,17 @@ public class JwtAuthenticFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(request, response);
+    }
+
+    private String getTokenFromRequest(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+
+        // "Bearer "로 시작하고 길이가 충분히 긴 경우에만 처리
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7); // "Bearer " 제거
+        }
+
+        return null;
     }
 
 }

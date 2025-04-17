@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.moneport.dao.transaction.TransactionDao">
+
+    <insert id="insertTransaction" parameterType="map">
+        INSERT INTO transaction (
+            user_id,
+            type,
+            amount,
+            category_id,
+            memo,
+            trans_date
+        )
+        VALUES (
+            #{user_id},
+            #{type},
+            #{amount},
+            #{category_id},
+            #{memo},
+            #{trans_date}
+        )
+    </insert>
+
+</mapper>
