@@ -1,6 +1,6 @@
 package com.moneport.backend.controller.login;
 
-import com.moneport.dao.user.UserDao;
+import com.moneport.backend.dao.user.UserDao;
 import com.moneport.framework.dataObject.MapRequest;
 import com.moneport.framework.util.JwtUtil;
 import lombok.RequiredArgsConstructor;

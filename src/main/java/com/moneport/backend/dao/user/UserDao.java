@@ -1,4 +1,4 @@
-package com.moneport.dao.user;
+package com.moneport.backend.dao.user;
 
 import com.moneport.framework.dataObject.MapRequest;
 import org.apache.ibatis.annotations.Mapper;

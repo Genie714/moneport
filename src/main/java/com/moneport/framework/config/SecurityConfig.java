@@ -1,6 +1,6 @@
-package com.moneport.backend.config;
+package com.moneport.framework.config;
 
-import com.moneport.backend.filter.JwtAuthenticFilter;
+import com.moneport.framework.filter.JwtAuthenticFilter;
 import com.moneport.framework.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

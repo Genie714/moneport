@@ -1,6 +1,6 @@
 package com.moneport.backend.controller.user;
 
-import com.moneport.dao.user.UserDao;
+import com.moneport.backend.dao.user.UserDao;
 import com.moneport.framework.dataObject.MapRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

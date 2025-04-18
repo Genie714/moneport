@@ -1,4 +1,4 @@
-package com.moneport.backend.filter;
+package com.moneport.framework.filter;
 
 import com.moneport.framework.util.JwtUtil;
 import jakarta.servlet.FilterChain;

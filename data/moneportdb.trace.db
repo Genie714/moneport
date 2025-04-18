@@ -986,3 +986,61 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: D:/WORKSPACE/mon
 	at org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:286)
 	... 187 more
+2025-04-18 17:39:05.899120+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "'spiderman' (TRANSACTION: ""USER_ID"" BIGINT NOT NULL)"; SQL statement:
+INSERT INTO transaction (
+            user_id,
+            type,
+            amount,
+            category_id,
+            memo,
+            trans_date
+        )
+        VALUES (
+            ?,
+            ?,
+            ?,
+            ?,
+            ?,
+            ?
+        ) [22018-232]
+2025-04-18 17:41:10.578084+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "'TEst' (TRANSACTION: ""CATEGORY_ID"" BIGINT)"; SQL statement:
+INSERT INTO transaction (
+            user_id,
+            type,
+            amount,
+            category_id,
+            memo,
+            trans_date
+        )
+        VALUES (
+            ?,
+            ?,
+            ?,
+            ?,
+            ?,
+            ?
+        ) [22018-232]
+2025-04-18 17:42:23.478659+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "'jkkj' (TRANSACTION: ""USER_ID"" BIGINT NOT NULL)"; SQL statement:
+INSERT INTO transaction (
+            user_id,
+            type,
+            amount,
+            category_id,
+            memo,
+            trans_date
+        )
+        VALUES (
+            ?,
+            ?,
+            ?,
+            ?,
+            ?,
+            ?
+        ) [22018-232]
+2025-04-18 17:53:52.785480+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT\000a            *\000a      FROM\000a            transaction\000a      WHERE 1 = 1\000a            AND user_id = {key}[*]" [42000-232]
+2025-04-18 17:54:23.839348+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT\000a            *\000a      FROM\000a            transaction\000a      WHERE 1 = 1\000a            AND user_id = {key}[*]" [42000-232]

@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.moneport.dao.transaction.TransactionDao">
+<mapper namespace="com.moneport.backend.dao.transaction.TransactionDao">
 
     <insert id="insertTransaction" parameterType="map">
         INSERT INTO transaction (
@@ -15,13 +15,22 @@
             trans_date
         )
         VALUES (
-            #{user_id},
+            #{userId},
             #{type},
             #{amount},
-            #{category_id},
+            #{categoryId},
             #{memo},
-            #{trans_date}
+            #{transDate}
         )
     </insert>
+
+    <select id="schListTransactions" parameterType="Map" resultType="Map">
+      SELECT
+            *
+      FROM
+            transaction
+      WHERE 1 = 1
+            AND user_id = #{key}
+    </select>
 
 </mapper>

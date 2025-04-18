@@ -1,13 +1,12 @@
 package com.moneport.dao;
 
-import com.moneport.dao.user.UserDao;
+import com.moneport.backend.dao.user.UserDao;
 import com.moneport.framework.dataObject.MapRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
