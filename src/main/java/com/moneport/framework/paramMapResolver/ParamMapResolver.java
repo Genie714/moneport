@@ -1,8 +1,10 @@
 package com.moneport.framework.paramMapResolver;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.moneport.framework.dataObject.MapRequest;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
@@ -10,19 +12,15 @@ import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
-
 import java.util.Enumeration;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class ParamMapResolver implements HandlerMethodArgumentResolver {
 
     private final Gson gson;
-
-    public ParamMapResolver(Gson gson) {
-        this.gson = gson;
-    }
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
@@ -34,6 +32,7 @@ public class ParamMapResolver implements HandlerMethodArgumentResolver {
         MapRequest params = new MapRequest();
         HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
 
+        //- form/formData 매핑
         Enumeration<String> paramNames = request.getParameterNames();
         while (paramNames.hasMoreElements()) {
             String key = paramNames.nextElement();
@@ -48,14 +47,33 @@ public class ParamMapResolver implements HandlerMethodArgumentResolver {
             }
         }
 
-        return params;
+        //- json 매핑
+        String contentType = request.getContentType();
+        if (contentType != null && contentType.contains("application/json")) {
+           StringBuilder jsonBuilder = new StringBuilder();
+            String line;
+            try (var reader = request.getReader()) {
+                while ((line = reader.readLine()) != null) {
+                    jsonBuilder.append(line);
+                }
+            }
 
-        /*
-        String json = servletRequest.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-        params.putAll(gson.fromJson(json, MapRequest.class));
-        return params;
+            String json = jsonBuilder.toString();
+            if (!json.isBlank()) {
+                try {
+                    Map<String, Object> jsonMap = gson.fromJson(
+                            json, new TypeToken<Map<String, Object>>() {}.getType()
+                    );
+                    if (jsonMap != null) {
+                        params.putAll(jsonMap);
+                    }
+                } catch (Exception e) {
+                    log.warn("JSON 파싱 실패: {}", e.getMessage());
+                }
+            }
+        }
 
-         */
+        return params;
     }
 
 }
