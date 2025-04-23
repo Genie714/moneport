@@ -2,7 +2,6 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="com.moneport.backend.dao.transaction.TransactionDao">
 
     <insert id="insertTransaction" parameterType="map">
@@ -25,12 +24,40 @@
     </insert>
 
     <select id="schListTransactions" parameterType="Map" resultType="Map">
-      SELECT
-            *
-      FROM
-            transaction
-      WHERE 1 = 1
-            AND user_id = #{key}
+        SELECT
+            ID,
+            USER_ID,
+            TYPE,
+            AMOUNT,
+            CATEGORY_ID,
+            MEMO,
+            TRANS_DATE
+        FROM
+            TRANSACTION
+        WHERE 1 = 1
+            AND USER_ID = #{key}
     </select>
+
+    <update id="updateTransaction" parameterType="Map">
+        UPDATE
+            TRANSACTION
+        SET
+            TYPE = #{type},
+            AMOUNT = #{amount},
+            CATEGORY_ID = #{categoryId},
+            MEMO = #{memo},
+            TRANS_DATE = #{transDate}
+        WHERE 1 = 1
+            AND ID = #{key}
+            AND USER_ID = #{userId}
+    </update>
+
+    <delete id="deleteTransaction">
+        DELETE
+        FROM
+            TRANSACTION
+        WHERE 1 = 1
+            AND ID = #{key}
+    </delete>
 
 </mapper>

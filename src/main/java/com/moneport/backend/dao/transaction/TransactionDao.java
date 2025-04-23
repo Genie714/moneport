@@ -12,4 +12,8 @@ public interface TransactionDao {
     void insertTransaction(MapRequest param);
 
     List<Map<String, Object>> schListTransactions(MapRequest param);
+
+    int updateTransaction(MapRequest param);
+
+    int deleteTransaction(MapRequest param);
 }

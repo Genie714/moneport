@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moneport.backend.dao.category.CategoryDao">
+
+    <select id="listCategories" parameterType="map" resultType="map">
+    SELECT * FROM category
+    WHERE user_id = #{userId} AND use_yn = 'Y'
+    </select>
+
+    <!-- 등록 -->
+    <insert id="insertCategory" parameterType="map">
+        INSERT INTO category (user_id, name, type)
+        VALUES (#{userId}, #{name}, #{type})
+    </insert>
+
+    <!-- 수정 -->
+    <update id="updateCategory" parameterType="map">
+        UPDATE category
+        SET name = #{name}, type = #{type}
+        WHERE id = #{id} AND user_id = #{userId}
+    </update>
+
+    <!-- 삭제 (soft delete) -->
+    <update id="deleteCategory" parameterType="map">
+        UPDATE category
+        SET use_yn = 'N'
+        WHERE id = #{id} AND user_id = #{userId}
+    </update>
+
+</mapper>

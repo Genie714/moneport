@@ -24,4 +24,17 @@ public class TransactionSvc {
         return transactionDao.schListTransactions(param);
     }
 
+    public void updateTransaction(MapRequest param) {
+        int result = transactionDao.updateTransaction(param);
+        if (result == 0) {
+            throw new IllegalArgumentException("대상이 없습니다");
+        }
+    }
+
+    public void deleteTransaction(MapRequest param) {
+        int result = transactionDao.deleteTransaction(param);
+        if (result == 0) {
+            throw new IllegalArgumentException("대상이 없습니다");
+        }
+    }
 }
