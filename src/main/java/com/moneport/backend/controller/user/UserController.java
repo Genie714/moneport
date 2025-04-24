@@ -2,6 +2,7 @@ package com.moneport.backend.controller.user;
 
 import com.moneport.framework.dataObject.MapRequest;
 import com.moneport.framework.global.WebLogic;
+import com.moneport.framework.util.JwtUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -31,6 +32,7 @@ import java.util.Map;
 public class UserController extends WebLogic {
 
     private final UserService userService;
+    private final JwtUtil jwtUtil;
 
     @Operation(summary = "유저 등록", description = "새로운 유저를 등록합니다.")
     @Parameters({
@@ -41,10 +43,12 @@ public class UserController extends WebLogic {
     @PostMapping
     public ResponseEntity<Map<String, Object>> createUser(MapRequest param) {
         Map<String, Object> jsonObj = new HashMap<>(); // return json object
-        
-        log.debug("컨트롤러 받은 값: {}", param);
+
         //- 유저 생성
         userService.createUser(param);
+
+        String token = jwtUtil.generateToken((String)param.get("username"));
+        jsonObj.put("token", token);
 
         makeAjaxSysMsg(jsonObj, "SUCCESS", "SUCCESS", "N");
 
