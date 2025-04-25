@@ -43,9 +43,9 @@ public class JwtUtil {
      * @modi date :
      * @modi desc :
      */
-    public String generateToken(String username) {
+    public String generateToken(String id) {
         return Jwts.builder()
-                .setSubject(username)       // 유저 식별자 설정
+                .setSubject(id)       // 유저 식별자 설정
                 .setIssuedAt(new Date())    // 토큰 발급 시각 설정
                 .setExpiration(new Date(System.currentTimeMillis() + expiration)) // 토큰 만료 시각 설정
                 .signWith(Keys.hmacShaKeyFor(secret.getBytes()), SignatureAlgorithm.HS256) // 서명알고리즘 및 비밀키 설정

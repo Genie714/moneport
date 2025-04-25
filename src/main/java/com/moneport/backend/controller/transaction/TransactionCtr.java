@@ -35,7 +35,6 @@ public class TransactionCtr extends WebLogic {
     @PostMapping("/create")
     public ResponseEntity<Map<String, Object>> create(MapRequest param) {
         Map<String, Object> jsonObj = new HashMap<>(); // return json object
-
         transactionSvc.insertTransaction(param);
 
         makeAjaxSysMsg(jsonObj, "SUCCESS", "SUCCESS", "N");

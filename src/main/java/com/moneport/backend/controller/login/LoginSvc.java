@@ -15,6 +15,6 @@ import java.util.Map;
  */
 public interface LoginSvc {
 
-    Map<String, Object> login(MapRequest param) throws Exception;
+    Map<String, Object> login(MapRequest param);
 
 }

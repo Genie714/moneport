@@ -1,5 +1,7 @@
 package com.moneport.backend.controller.user;
 
+import com.moneport.backend.controller.login.LoginSvc;
+import com.moneport.backend.controller.login.LoginSvcImpl;
 import com.moneport.framework.dataObject.MapRequest;
 import com.moneport.framework.global.WebLogic;
 import com.moneport.framework.util.JwtUtil;
@@ -33,6 +35,7 @@ public class UserController extends WebLogic {
 
     private final UserService userService;
     private final JwtUtil jwtUtil;
+    private final LoginSvc loginSvc;
 
     @Operation(summary = "유저 등록", description = "새로운 유저를 등록합니다.")
     @Parameters({
@@ -47,7 +50,10 @@ public class UserController extends WebLogic {
         //- 유저 생성
         userService.createUser(param);
 
-        String token = jwtUtil.generateToken((String)param.get("username"));
+        //- 로그인
+        jsonObj = loginSvc.login(param);
+
+        String token = jwtUtil.generateToken((String)param.get("id"));
         jsonObj.put("token", token);
 
         makeAjaxSysMsg(jsonObj, "SUCCESS", "SUCCESS", "N");

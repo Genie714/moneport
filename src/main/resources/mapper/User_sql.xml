@@ -44,6 +44,7 @@
 
     <select id="selectOneUser" parameterType="Map" resultType="Map">
         SELECT
+            ID,
             USERNAME,
             CASE WHEN PASSWORD = #{password} THEN
                   'Y'

@@ -2,7 +2,6 @@ package com.moneport.framework.intercepter;
 
 import com.google.gson.Gson;
 import com.moneport.framework.annotation.ValidCheck;
-import com.moneport.framework.dataObject.MapRequest;
 import com.moneport.framework.exception.AppException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,7 +19,8 @@ import java.util.stream.Collectors;
 @Component
 @RequiredArgsConstructor
 public class defaultInterceptor implements HandlerInterceptor {
-
+    //-- 리퀘스트를 겟리더로 읽어버리면서 스트림이 소실됨, aop 로 이관
+    /*
     private final Gson gson;
 
     @Override
@@ -56,6 +56,9 @@ public class defaultInterceptor implements HandlerInterceptor {
         }
 
         return true;
+
+
     }
+     */
 
 }

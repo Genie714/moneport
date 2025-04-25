@@ -53,7 +53,7 @@ public class loginCtr extends WebLogic {
             }
             
             // Jwt 토큰 발행
-            String token = jwtUtil.generateToken((String) result.get("username"));
+            String token = jwtUtil.generateToken(result.get("ID").toString());
 
             jsonObj.put("user", result);
             jsonObj.put("token", token);

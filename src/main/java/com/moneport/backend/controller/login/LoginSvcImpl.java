@@ -14,11 +14,10 @@ import java.util.Map;
 public class LoginSvcImpl implements LoginSvc {
 
     private final UserDao userDao;
-    private final JwtUtil jwtUtil;
 
     @Override
     @Transactional(readOnly = true)
-    public Map<String, Object> login(MapRequest param) throws Exception {
+    public Map<String, Object> login(MapRequest param) {
 
         Map<String, Object> user = userDao.selectOneUser(param);
 

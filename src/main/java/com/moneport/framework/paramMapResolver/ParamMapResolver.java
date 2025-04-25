@@ -49,6 +49,7 @@ public class ParamMapResolver implements HandlerMethodArgumentResolver {
 
         //- json 매핑
         String contentType = request.getContentType();
+        log.debug("Content-Type: {}", contentType);
         if (contentType != null && contentType.contains("application/json")) {
            StringBuilder jsonBuilder = new StringBuilder();
             String line;
@@ -59,20 +60,25 @@ public class ParamMapResolver implements HandlerMethodArgumentResolver {
             }
 
             String json = jsonBuilder.toString();
+            log.debug("Raw JSON Body: {}", json);
             if (!json.isBlank()) {
                 try {
                     Map<String, Object> jsonMap = gson.fromJson(
                             json, new TypeToken<Map<String, Object>>() {}.getType()
                     );
+                    log.debug("Parsed JSON Map: {}", jsonMap);
+
                     if (jsonMap != null) {
                         params.putAll(jsonMap);
                     }
                 } catch (Exception e) {
                     log.warn("JSON 파싱 실패: {}", e.getMessage());
                 }
+            } else {
+                log.warn("JSON 본문이 비어 있음 (request.getReader() 결과 없음)");
             }
         }
-
+        log.debug("최종 ParamMapResolver 결과: {}", params);
         return params;
     }
 
