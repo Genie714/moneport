@@ -10,8 +10,11 @@ import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
+import org.springframework.web.servlet.HandlerMapping;
+
 import java.util.Enumeration;
 import java.util.Map;
 
@@ -78,6 +81,19 @@ public class ParamMapResolver implements HandlerMethodArgumentResolver {
                 log.warn("JSON 본문이 비어 있음 (request.getReader() 결과 없음)");
             }
         }
+
+        //- path variable
+        @SuppressWarnings("unchecked")
+        Map<String, String> pathVariables =
+                (Map<String, String>) webRequest.getAttribute(
+                        HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE,
+                        RequestAttributes.SCOPE_REQUEST
+                );
+
+        if (pathVariables != null) {
+            params.putAll(pathVariables);
+        }
+
         log.debug("최종 ParamMapResolver 결과: {}", params);
         return params;
     }
