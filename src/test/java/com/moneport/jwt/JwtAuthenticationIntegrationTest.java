@@ -30,7 +30,7 @@ public class JwtAuthenticationIntegrationTest {
 
         // when + then
         mockMvc.perform(get("/api/auth/secure")  // JWT 인증이 필요한 API
-                        .header("Authorization", token)
+                        .header("Authorization", "Bearer " + token)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.msg").value("인증된 사용자만 볼 수 있습니다."));
