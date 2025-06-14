@@ -5,7 +5,7 @@ import com.moneport.framework.dataObject.MapRequest;
 import java.util.Map;
 
 /**
- * @Project_Name : 스피드온2.0 고도화
+ * @Project_Name : moneport
  * @Package_Name : com.moneport.backend.controller.login
  * @Class_Name : LoginSvc.java
  * @Description : 로그인 서비스 인터페이스
